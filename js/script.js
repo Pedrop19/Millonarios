@@ -4,6 +4,7 @@ const doubleBtn = document.getElementById("double");
 const showMillionairesBtn = document.getElementById("show-millionaires");
 const sortBtn = document.getElementById("sort");
 const calculateWealthBtn = document.getElementById("calculate-wealth");
+let totalExiste = false;
 
 // Vector para almacenar los usuarios
 let userList = [];
@@ -64,6 +65,12 @@ function calculateWealth() {
   let h3 = document.createElement("h3");
   h3.innerHTML = "Dinero total: <strong>" + formatMoney(wealth) + "</strong>";
   main.appendChild(h3);
+  totalExiste = true;
+  if(totalExiste){
+    calculateWealthBtn.removeEventListener("click", calculateWealth);
+    totalExiste = false;
+  }
+
 }
 
 // TODO: Función que actualiza el DOM
@@ -80,6 +87,7 @@ function updateDOM() {
       "<strong>" + user.name + "</strong>" + formatMoney(user.money);
     main.appendChild(div);
   });
+  calculateWealthBtn.addEventListener("click", calculateWealth);
 }
 
 // Función que formatea un número a dinero
